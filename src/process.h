@@ -1,13 +1,14 @@
 #ifndef PROCESS_H
 #define PROCESS_H
+
 #include <vector>
-#include <cstddef> // For size_t
+#include <cstddef>
 
 struct Process {
     int id;                 
     int arrival_time;       
     std::vector<int> bursts; 
-    size_t current_burst_index; // Changed from 'int' to 'size_t'
+    size_t current_burst_index; 
     
     // Metrics
     int completion_time;
@@ -17,4 +18,5 @@ struct Process {
     int remaining_time_in_burst; 
     int priority_queue;      
 };
+
 #endif

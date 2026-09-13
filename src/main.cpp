@@ -6,22 +6,27 @@
 
 using namespace std;
 
-// Declarations
+// Function prototypes
 int simulate_FIFO(vector<Process>& processes);
 int simulate_RR(vector<Process>& processes, int time_quantum);
 int simulate_MLFQ(vector<Process>& processes, bool enable_boost);
+
 int simulate_FIFO_dual(vector<Process>& processes);
+int simulate_RR_dual(vector<Process>& processes, int time_quantum);
+int simulate_MLFQ_dual(vector<Process>& processes, bool enable_boost);
+
 void print_metrics(const vector<Process>& processes, int total_run_time);
 
 int main(int argc, char* argv[]) {
-    if (argc < 3 || argc > 4) {
-        cerr << "Usage: ./simulator <algorithm> <path-to-workload> [cpus: 1 or 2]\n";
+    if (argc < 3) {
+        cerr << "Usage: ./simulator <algorithm> <path-to-workload> [cpus: 1 or 2] [quantum/boost_flag]\n";
         return 1;
     }
 
     string algorithm = argv[1];
     string filepath = argv[2];
-    int cpus = (argc == 4) ? stoi(argv[3]) : 1;
+    int cpus = (argc >= 4) ? stoi(argv[3]) : 1;
+    int extra_arg = (argc >= 5) ? stoi(argv[4]) : 2; // Default quantum = 2 or boost toggle
 
     vector<Process> processes;
     ifstream file(filepath);
@@ -56,20 +61,25 @@ int main(int argc, char* argv[]) {
         if (algorithm == "FIFO") {
             cout << "Running Dual-CPU FIFO Simulation...\n";
             total_run_time = simulate_FIFO_dual(processes);
-        } else {
-            cerr << "Algorithm " << algorithm << " with 2 CPUs running standard fallback...\n";
-            total_run_time = simulate_FIFO_dual(processes);
+        } else if (algorithm == "RR") {
+            cout << "Running Dual-CPU Round Robin (Quantum = " << extra_arg << ")...\n";
+            total_run_time = simulate_RR_dual(processes, extra_arg);
+        } else if (algorithm == "MLFQ") {
+            bool boost = (extra_arg != 0);
+            cout << "Running Dual-CPU MLFQ (Boost = " << (boost ? "Enabled" : "Disabled") << ")...\n";
+            total_run_time = simulate_MLFQ_dual(processes, boost);
         }
     } else {
         if (algorithm == "FIFO") {
             cout << "Running Single-CPU FIFO Simulation...\n";
             total_run_time = simulate_FIFO(processes);
         } else if (algorithm == "RR") {
-            cout << "Running Round Robin Simulation (Quantum = 2)...\n";
-            total_run_time = simulate_RR(processes, 2);
+            cout << "Running Single-CPU Round Robin (Quantum = " << extra_arg << ")...\n";
+            total_run_time = simulate_RR(processes, extra_arg);
         } else if (algorithm == "MLFQ") {
-            cout << "Running MLFQ Simulation...\n";
-            total_run_time = simulate_MLFQ(processes, true);
+            bool boost = (extra_arg != 0);
+            cout << "Running Single-CPU MLFQ (Boost = " << (boost ? "Enabled" : "Disabled") << ")...\n";
+            total_run_time = simulate_MLFQ(processes, boost);
         }
     }
 
