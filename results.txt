@@ -1,0 +1,186 @@
+=== SIMULATION RESULTS ===
+==========================================
+WORKLOAD: workloads/process1.txt
+==========================================
+--- 1 CPU RUNS ---
+Loaded 3 processes successfully.
+Running Single-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 362.333
+Maximum Turnaround Time: 589
+Total Simulator Run Time (ticks): 600
+--------------------------
+Loaded 3 processes successfully.
+Running Round Robin Simulation (Quantum = 2)...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 457.667
+Maximum Turnaround Time: 589
+Total Simulator Run Time (ticks): 600
+--------------------------
+Loaded 3 processes successfully.
+Running MLFQ Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 460.333
+Maximum Turnaround Time: 589
+Total Simulator Run Time (ticks): 600
+--------------------------
+--- 2 CPU RUNS ---
+Loaded 3 processes successfully.
+Running Dual-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 229
+Maximum Turnaround Time: 389
+Total Simulator Run Time (ticks): 400
+--------------------------
+==========================================
+WORKLOAD: workloads/process2.txt
+==========================================
+--- 1 CPU RUNS ---
+Loaded 4 processes successfully.
+Running Single-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 524
+Maximum Turnaround Time: 599
+Total Simulator Run Time (ticks): 600
+--------------------------
+Loaded 4 processes successfully.
+Running Round Robin Simulation (Quantum = 2)...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 594
+Maximum Turnaround Time: 599
+Total Simulator Run Time (ticks): 600
+--------------------------
+Loaded 4 processes successfully.
+Running MLFQ Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 594
+Maximum Turnaround Time: 599
+Total Simulator Run Time (ticks): 600
+--------------------------
+--- 2 CPU RUNS ---
+Loaded 4 processes successfully.
+Running Dual-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 274
+Maximum Turnaround Time: 299
+Total Simulator Run Time (ticks): 300
+--------------------------
+==========================================
+WORKLOAD: workloads/process3.txt
+==========================================
+--- 1 CPU RUNS ---
+Loaded 4 processes successfully.
+Running Single-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 11.5
+Maximum Turnaround Time: 13
+Total Simulator Run Time (ticks): 14
+--------------------------
+Loaded 4 processes successfully.
+Running Round Robin Simulation (Quantum = 2)...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 11.5
+Maximum Turnaround Time: 13
+Total Simulator Run Time (ticks): 14
+--------------------------
+Loaded 4 processes successfully.
+Running MLFQ Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 11.5
+Maximum Turnaround Time: 13
+Total Simulator Run Time (ticks): 14
+--------------------------
+--- 2 CPU RUNS ---
+Loaded 4 processes successfully.
+Running Dual-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 10.5
+Maximum Turnaround Time: 11
+Total Simulator Run Time (ticks): 12
+--------------------------
+==========================================
+WORKLOAD: workloads/process4.txt
+==========================================
+--- 1 CPU RUNS ---
+Loaded 3 processes successfully.
+Running Single-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 118
+Maximum Turnaround Time: 154
+Total Simulator Run Time (ticks): 170
+--------------------------
+Loaded 3 processes successfully.
+Running Round Robin Simulation (Quantum = 2)...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 129.667
+Maximum Turnaround Time: 140
+Total Simulator Run Time (ticks): 151
+--------------------------
+Loaded 3 processes successfully.
+Running MLFQ Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 131.333
+Maximum Turnaround Time: 141
+Total Simulator Run Time (ticks): 152
+--------------------------
+--- 2 CPU RUNS ---
+Loaded 3 processes successfully.
+Running Dual-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 76.6667
+Maximum Turnaround Time: 86
+Total Simulator Run Time (ticks): 102
+--------------------------
+==========================================
+WORKLOAD: workloads/process5.txt
+==========================================
+--- 1 CPU RUNS ---
+Loaded 6 processes successfully.
+Running Single-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 188
+Maximum Turnaround Time: 224
+Total Simulator Run Time (ticks): 240
+--------------------------
+Loaded 6 processes successfully.
+Running Round Robin Simulation (Quantum = 2)...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 214.5
+Maximum Turnaround Time: 232
+Total Simulator Run Time (ticks): 243
+--------------------------
+Loaded 6 processes successfully.
+Running MLFQ Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 211.667
+Maximum Turnaround Time: 231
+Total Simulator Run Time (ticks): 242
+--------------------------
+--- 2 CPU RUNS ---
+Loaded 6 processes successfully.
+Running Dual-CPU FIFO Simulation...
+
+--- SCHEDULING METRICS ---
+Average Turnaround Time: 100.667
+Maximum Turnaround Time: 112
+Total Simulator Run Time (ticks): 128
+--------------------------
