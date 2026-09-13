@@ -235,3 +235,25 @@ void simulate_MLFQ(vector<Process>& processes, bool enable_boost) {
         current_time++;
     }
 }
+
+// --- DAY 4: METRICS AND OUTPUT ---
+void print_metrics(const vector<Process>& processes, int total_run_time) {
+    int total_turnaround = 0;
+    int max_turnaround = 0;
+
+    for (const auto& p : processes) {
+        int turnaround = p.completion_time - p.arrival_time;
+        total_turnaround += turnaround;
+        if (turnaround > max_turnaround) {
+            max_turnaround = turnaround;
+        }
+    }
+
+    double avg_turnaround = (double)total_turnaround / processes.size();
+
+    cout << "\n--- SCHEDULING METRICS ---\n";
+    cout << "Average Turnaround Time: " << avg_turnaround << "\n";
+    cout << "Maximum Turnaround Time: " << max_turnaround << "\n";
+    cout << "Total Simulator Run Time (ticks): " << total_run_time << "\n";
+    cout << "--------------------------\n";
+}
