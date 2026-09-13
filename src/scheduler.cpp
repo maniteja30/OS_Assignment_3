@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <algorithm>
 #include "process.h"
 
 using namespace std;
@@ -9,12 +8,16 @@ using namespace std;
 // Helper to check if all processes are fully complete (all bursts finished)
 bool all_processes_done(const vector<Process>& processes) {
     for (const auto& p : processes) {
-        if (p.current_burst_index < p.bursts.size()) return false;
+        if (p.current_burst_index < p.bursts.size()) {
+            return false;
+        }
     }
     return true;
 }
 
-// --- DAY 2: FIFO SCHEDULING ---
+// =======================================================
+// --- DAY 2, ALGORITHM A: FIFO SCHEDULING ---
+// =======================================================
 void simulate_FIFO(vector<Process>& processes) {
     int current_time = 0;
     queue<int> ready_queue;
@@ -69,6 +72,78 @@ void simulate_FIFO(vector<Process>& processes) {
                     p.completion_time = current_time; // Process is completely finished
                 }
                 cpu_active_process = -1; // CPU is free again
+            }
+        }
+        current_time++;
+    }
+}
+
+// =======================================================
+// --- DAY 2, ALGORITHM B: ROUND ROBIN SCHEDULING ---
+// =======================================================
+void simulate_RR(vector<Process>& processes, int time_quantum) {
+    int current_time = 0;
+    queue<int> ready_queue;
+    vector<int> waiting_queue; 
+    
+    int cpu_active_process = -1; 
+    int current_quantum_used = 0; // Tracks how long the current process has been on the CPU
+
+    while (!all_processes_done(processes)) {
+        // 1. Check for new arrivals at the current time
+        for (auto& p : processes) {
+            if (p.arrival_time == current_time && p.current_burst_index == 0) {
+                ready_queue.push(p.id);
+            }
+        }
+
+        // 2. Process I/O (Waiting Queue)
+        for (auto it = waiting_queue.begin(); it != waiting_queue.end(); ) {
+            Process& p = processes[*it];
+            p.remaining_time_in_burst--;
+            
+            if (p.remaining_time_in_burst == 0) {
+                // I/O is done. Move to next CPU burst.
+                p.current_burst_index++;
+                if (p.current_burst_index < p.bursts.size()) {
+                    p.remaining_time_in_burst = p.bursts[p.current_burst_index];
+                    ready_queue.push(p.id); // Back to ready queue
+                } else {
+                    p.completion_time = current_time; 
+                }
+                it = waiting_queue.erase(it);
+            } else {
+                ++it;
+            }
+        }
+
+        // 3. CPU Execution & Preemption
+        if (cpu_active_process == -1 && !ready_queue.empty()) {
+            cpu_active_process = ready_queue.front();
+            ready_queue.pop();
+            current_quantum_used = 0; // Reset quantum tracker for the new process
+        }
+
+        if (cpu_active_process != -1) {
+            Process& p = processes[cpu_active_process];
+            p.remaining_time_in_burst--;
+            current_quantum_used++;
+
+            if (p.remaining_time_in_burst == 0) {
+                // CPU burst naturally finished before or exactly when quantum expired
+                p.current_burst_index++; 
+                if (p.current_burst_index < p.bursts.size()) {
+                    p.remaining_time_in_burst = p.bursts[p.current_burst_index];
+                    waiting_queue.push_back(p.id);
+                } else {
+                    p.completion_time = current_time; // Process is completely finished
+                }
+                cpu_active_process = -1; // CPU is free
+            } 
+            else if (current_quantum_used == time_quantum) {
+                // Preemption: Burst isn't done, but the time quantum expired!
+                ready_queue.push(p.id); // Push back to the end of the line
+                cpu_active_process = -1; // Kick it off the CPU
             }
         }
         current_time++;
